@@ -1,0 +1,31 @@
+# Generate the Xcode project with XcodeGen:  brew install xcodegen && cd ios && xcodegen
+name: SwasthSaathiVoice
+options:
+  bundleIdPrefix: com.swasthsaathi
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  SwasthSaathiVoice:
+    type: application
+    platform: iOS
+    sources:
+      - path: SwasthSaathiVoice
+      # One shared knowledge base for backend, Android and iOS
+      - path: ../shared/knowledge
+        buildPhase: resources
+    info:
+      path: SwasthSaathiVoice/Info.plist
+      properties:
+        CFBundleDisplayName: Swasth Saathi Voice
+        UILaunchScreen: {}
+        NSMicrophoneUsageDescription: "Swasth Saathi listens to you describe your symptoms."
+        NSSpeechRecognitionUsageDescription: "Your speech is converted to text to understand your symptoms."
+        BackendURL: "http://localhost:3000"
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.swasthsaathi.voice
+        SWIFT_VERSION: "5.9"
+        # Health data at rest is encrypted by us (CryptoKit) AND by iOS file protection:
+        CODE_SIGN_ENTITLEMENTS: ""
